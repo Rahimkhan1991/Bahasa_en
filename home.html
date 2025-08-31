@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Home</title>
+    <!-- Use the Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base styles and custom fonts */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        /* Define a custom color palette for Tailwind */
+        :root {
+            --primary-bg: #12182b; /* Dark Navy/Charcoal */
+            --secondary-bg: #1e2940; /* Slightly lighter for sections */
+            --accent-green: #059669; /* A fresh green */
+            --accent-coral: #f97316; /* A warm, vibrant coral */
+            --accent-yellow: #facc15; /* A bright, sunny yellow */
+            --text-light: #f3f4f6; /* Off-white text */
+            --text-medium: #d1d5db; /* Lighter grey text */
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-medium);
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            background-color: #f0f4f8;
+            color: #1a202c;
+        }
+        .light-theme .theme-button {
+            color: var(--text-light);
+            background-color: var(--accent-green);
+            border-color: #6b7280;
+        }
+        .light-theme .card {
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+    </style>
+</head>
+<body class="bg-[var(--primary-bg)] text-[var(--text-medium)] min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <!-- Main content container with responsive padding and max-width -->
+    <div class="w-full max-w-5xl mx-auto flex flex-col items-center py-2 sm:py-4">
+        <!-- Header with a gradient effect -->
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-amber-500">Language Learning Hub</h1>
+            <p class="mt-2 text-lg md:text-2xl font-light text-gray-400">Choose a lesson to begin your journey!</p>
+        </header>
+
+        <!-- Lesson Cards Grid -->
+        <div class="w-full grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+
+            <!-- Day 1 Card -->
+            <a href="day1.html" class="card block bg-[var(--secondary-bg)] p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <h2 class="text-xl md:text-2xl font-bold text-[var(--text-light)] mb-2">Day 1: Greetings</h2>
+                <p class="text-sm md:text-base text-gray-400">Basic greetings and introductions.</p>
+            </a>
+            
+            <!-- Day 2 Card -->
+            <a href="day2.html" class="card block bg-[var(--secondary-bg)] p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <h2 class="text-xl md:text-2xl font-bold text-[var(--text-light)] mb-2">Day 2: Ordering Food</h2>
+                <p class="text-sm md:text-base text-gray-400">Essential phrases for restaurants.</p>
+            </a>
+
+            <!-- Day 3 Card -->
+            <a href="day3.html" class="card block bg-[var(--secondary-bg)] p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <h2 class="text-xl md:text-2xl font-bold text-[var(--text-light)] mb-2">Day 3: Travel</h2>
+                <p class="text-sm md:text-base text-gray-400">Asking for directions and transportation.</p>
+            </a>
+
+            <!-- Day 4 Card -->
+            <a href="day4.html" class="card block bg-[var(--secondary-bg)] p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <h2 class="text-xl md:text-2xl font-bold text-[var(--text-light)] mb-2">Day 4: Shopping</h2>
+                <p class="text-sm md:text-base text-gray-400">Talking about prices and shopping.</p>
+            </a>
+
+            <!-- Day 5 Card -->
+            <a href="day5.html" class="card block bg-[var(--secondary-bg)] p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <h2 class="text-xl md:text-2xl font-bold text-[var(--text-light)] mb-2">Day 5: Adjectives</h2>
+                <p class="text-sm md:text-base text-gray-400">Describing people and things.</p>
+            </a>
+
+            <!-- Day 6 Card -->
+            <a href="day6.html" class="card block bg-[var(--secondary-bg)] p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <h2 class="text-xl md:text-2xl font-bold text-[var(--text-light)] mb-2">Day 6: Verbs</h2>
+                <p class="text-sm md:text-base text-gray-400">Common actions and tenses.</p>
+            </a>
+
+            <!-- Day 7 Card -->
+            <a href="day7.html" class="card block bg-[var(--secondary-bg)] p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <h2 class="text-xl md:text-2xl font-bold text-[var(--text-light)] mb-2">Day 7: Family</h2>
+                <p class="text-sm md:text-base text-gray-400">Vocabulary for family members.</p>
+            </a>
+
+            <!-- Day 8 Card - This is a live link to the existing page -->
+            <a href="day8.html" class="card block bg-[var(--secondary-bg)] p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <h2 class="text-xl md:text-2xl font-bold text-[var(--text-light)] mb-2">Day 8: Quiz & Puzzles</h2>
+                <p class="text-sm md:text-base text-gray-400">Numbers, time, quiz & word scramble.</p>
+            </a>
+
+            <!-- Test Page Card -->
+            <a href="test-page.html" class="card block bg-[var(--secondary-bg)] p-6 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <h2 class="text-xl md:text-2xl font-bold text-[var(--text-light)] mb-2">Final Test</h2>
+                <p class="text-sm md:text-base text-gray-400">Review your progress and test your knowledge!</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
