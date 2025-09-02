@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indonesian Language Basics - Day 4</title>
+    <!-- Use the Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark Theme (Default) */
+        body {
+            background-color: #0d1222;
+            color: #d1d5db;
+        }
+        .theme-button, .reverse-button {
+            color: #f3f4f6;
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+        .flip-card-front {
+            background-color: #1f2937;
+            color: #d1d5db;
+        }
+        .flip-card-back {
+            background-color: #047857;
+            color: #f3f4f6;
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            background-color: #f8fafc;
+            color: #1f2937;
+        }
+        .light-theme .theme-button, .light-theme .reverse-button {
+            color: #f3f4f6;
+            background-color: #4b5563;
+            border-color: #6b7280;
+        }
+        .light-theme .flip-card-front {
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+        .light-theme .flip-card-back {
+            background-color: #059669;
+            color: #f3f4f6;
+        }
+
+        /* Flip Card logic */
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 1.5rem; /* 24px */
+        }
+        .flip-card-front {
+            z-index: 2;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; /* Dark gray */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6b7280; /* Medium gray */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af; /* Lighter gray */
+        }
+
+        /* Styles for reversed mode */
+        body.reversed .flip-card-front .en-text,
+        body.reversed .flip-card-back .id-text {
+            display: none;
+        }
+        body.reversed .flip-card-front .id-text,
+        body.reversed .flip-card-back .en-text {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center justify-start p-4 md:p-8">
+
+    <!-- Main content container -->
+    <div class="w-full max-w-4xl mx-auto flex flex-col items-center">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-teal-400">Day 4: Eating and Ordering Food</h1>
+            <p class="mt-2 text-lg md:text-xl text-gray-400">Click on a card to see the translation!</p>
+        </header>
+
+        <!-- Control buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-8 w-full max-w-sm">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" onclick="toggleTheme()" class="theme-button flex-1 py-3 px-6 rounded-2xl border-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                Switch to Light Theme
+            </button>
+            <!-- Reverse Cards Button -->
+            <button id="reverse-toggle" onclick="toggleReverse()" class="reverse-button flex-1 py-3 px-6 rounded-2xl border-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                Reverse Cards
+            </button>
+        </div>
+
+        <!-- Main language learning section -->
+        <main class="w-full grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+
+            <!-- Category Section: Food Vocabulary -->
+            <div class="col-span-full mt-8 mb-4">
+                <h2 class="text-2xl font-semibold text-gray-200">Food Vocabulary</h2>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">Food</p>
+                        <p class="text-xl font-medium id-text hidden">Makanan</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">Food</p>
+                        <p class="text-xl font-medium id-text">Makanan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">Drink</p>
+                        <p class="text-xl font-medium id-text hidden">Minuman</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">Drink</p>
+                        <p class="text-xl font-medium id-text">Minuman</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">Water</p>
+                        <p class="text-xl font-medium id-text hidden">Air</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">Water</p>
+                        <p class="text-xl font-medium id-text">Air</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">Rice</p>
+                        <p class="text-xl font-medium id-text hidden">Nasi</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">Rice</p>
+                        <p class="text-xl font-medium id-text">Nasi</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">Chicken</p>
+                        <p class="text-xl font-medium id-text hidden">Ayam</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">Chicken</p>
+                        <p class="text-xl font-medium id-text">Ayam</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">Fish</p>
+                        <p class="text-xl font-medium id-text hidden">Ikan</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">Fish</p>
+                        <p class="text-xl font-medium id-text">Ikan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">Vegetables</p>
+                        <p class="text-xl font-medium id-text hidden">Sayur</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">Vegetables</p>
+                        <p class="text-xl font-medium id-text">Sayur</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Section: Ordering at a Restaurant -->
+            <div class="col-span-full mt-4 mb-4">
+                <h2 class="text-2xl font-semibold text-gray-200">Ordering at a Restaurant</h2>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">The menu, please</p>
+                        <p class="text-xl font-medium id-text hidden">Minta menu</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">The menu, please</p>
+                        <p class="text-xl font-medium id-text">Minta menu</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">I want to order</p>
+                        <p class="text-xl font-medium id-text hidden">Saya mau pesan</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">I want to order</p>
+                        <p class="text-xl font-medium id-text">Saya mau pesan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">Delicious</p>
+                        <p class="text-xl font-medium id-text hidden">Enak</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">Delicious</p>
+                        <p class="text-xl font-medium id-text">Enak</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">The bill, please</p>
+                        <p class="text-xl font-medium id-text hidden">Minta bon</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">The bill, please</p>
+                        <p class="text-xl font-medium id-text">Minta bon</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Section: Common Verbs -->
+            <div class="col-span-full mt-4 mb-4">
+                <h2 class="text-2xl font-semibold text-gray-200">Common Verbs</h2>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">To eat</p>
+                        <p class="text-xl font-medium id-text hidden">Makan</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">To eat</p>
+                        <p class="text-xl font-medium id-text">Makan</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">To drink</p>
+                        <p class="text-xl font-medium id-text hidden">Minum</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">To drink</p>
+                        <p class="text-xl font-medium id-text">Minum</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">To want</p>
+                        <p class="text-xl font-medium id-text hidden">Mau</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">To want</p>
+                        <p class="text-xl font-medium id-text">Mau</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">To like</p>
+                        <p class="text-xl font-medium id-text hidden">Suka</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">To like</p>
+                        <p class="text-xl font-medium id-text">Suka</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- "Go to Next Page" button -->
+            <div class="col-span-full flex justify-center mt-12 mb-8">
+                <button id="next-page-button" onclick="alert('This will take you to a new page!')" class="theme-button flex-1 py-4 px-8 rounded-2xl border-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 max-w-sm">
+                    Move to Next Page
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript to handle all the functionality -->
+    <script>
+        // Check for browser support for the Web Speech API
+        const speechSupported = 'speechSynthesis' in window;
+        const body = document.body;
+        const themeButton = document.getElementById('theme-toggle');
+        const reverseButton = document.getElementById('reverse-toggle');
+
+        // Function to toggle the light and dark themes
+        function toggleTheme() {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                themeButton.textContent = 'Switch to Dark Theme';
+            } else {
+                themeButton.textContent = 'Switch to Light Theme';
+            }
+        }
+
+        // Function to toggle the card direction (English -> Indonesian or vice-versa)
+        function toggleReverse() {
+            body.classList.toggle('reversed');
+            // Change the button text based on the current mode
+            if (body.classList.contains('reversed')) {
+                reverseButton.textContent = 'Normal View';
+            } else {
+                reverseButton.textContent = 'Reverse Cards';
+            }
+        }
+
+        // Function to speak the Indonesian phrase from a clicked card
+        function speakPhrase(cardElement) {
+            if (!speechSupported) {
+                console.warn("Web Speech API is not supported in this browser.");
+                return;
+            }
+
+            // Find the Indonesian text element within the card
+            const idTextElement = cardElement.querySelector('.id-text');
+            if (idTextElement) {
+                const phrase = idTextElement.textContent;
+                const utterance = new SpeechSynthesisUtterance(phrase);
+                // Set the language to Indonesian for better pronunciation
+                utterance.lang = 'id-ID'; 
+                // Stop any current speech before starting a new one
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+    </script>
+</body>
+</html>
