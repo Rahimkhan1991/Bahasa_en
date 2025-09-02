@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Puzzle & Quiz Challenge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+    body { font-family: 'Inter', sans-serif; transition: background-color 0.4s, color 0.4s; }
+    :root {
+        --primary-bg: #12182b;
+        --secondary-bg: #1e2940;
+        --accent-green: #059669;
+        --accent-coral: #f97316;
+        --accent-yellow: #facc15;
+        --text-light: #f3f4f6;
+        --text-medium: #d1d5db;
+    }
+    body { background-color: var(--primary-bg); color: var(--text-medium); }
+    .theme-button { color: var(--text-light); background-color: var(--secondary-bg); border-color: #374151; transition: all 0.3s; }
+    body.light-theme { background-color: #f0f4f8; color: #1a202c; }
+    .light-theme .theme-button { background-color: var(--accent-green); }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1f2937; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: #6b7280; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+</style>
+</head>
+<body class="bg-[var(--primary-bg)] text-[var(--text-medium)] min-h-screen flex flex-col items-center p-4 md:p-8">
+
+<div class="w-full max-w-5xl mx-auto flex flex-col items-center py-2 sm:py-4">
+    <header class="text-center mb-8 md:mb-12">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-amber-500">Puzzle & Quiz Challenge</h1>
+        <p class="mt-2 text-lg md:text-2xl font-light text-gray-400">Test your Indonesian knowledge with fun quizzes and puzzles!</p>
+    </header>
+
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8 w-full">
+        <button onclick="window.location.href = 'index.html'" class="theme-button py-3 px-8 rounded-full border-2 font-semibold shadow-lg hover:scale-105 transition-all duration-300">Back to Home</button>
+        <button id="theme-toggle" onclick="toggleTheme()" class="theme-button py-3 px-8 rounded-full border-2 font-semibold shadow-lg hover:scale-105 transition-all duration-300">Switch Theme</button>
+    </div>
+
+    <div class="w-full">
+        <div id="quizSection" class="bg-[var(--secondary-bg)] p-6 sm:p-8 rounded-3xl shadow-lg space-y-6 text-center w-full">
+            <div id="quizContainer">
+                <p id="welcomeMessage" class="text-lg md:text-2xl font-semibold mb-4 text-white">Enter your name to begin!</p>
+                <input type="text" id="studentNameInput" placeholder="Enter your name" class="p-4 w-full max-w-lg mx-auto rounded-full bg-[var(--primary-bg)] text-[var(--text-light)] placeholder-gray-400 text-center text-lg focus:outline-none focus:ring-4 focus:ring-[var(--accent-yellow)] transition-all">
+
+                <div id="options" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                    <button id="startTestButton" onclick="startTest()" class="bg-[var(--accent-coral)] hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full transition-all duration-300">Start Challenge</button>
+                </div>
+
+                <div id="testElements" class="hidden">
+                    <div id="timerDisplay" class="text-md md:text-xl font-bold mt-4 text-[var(--accent-green)]">Time: 10:00</div>
+                    <p id="question" class="text-lg md:text-2xl font-semibold mt-4 mb-4 text-white"></p>
+                    <div id="quizOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                    <div id="feedback" class="text-md md:text-lg font-medium mt-6"></div>
+                    <div id="scoreDisplay" class="text-md md:text-xl font-bold mt-4 text-[var(--accent-yellow)]">Score: 0 / 0</div>
+                </div>
+
+                <div id="endTestElements" class="hidden">
+                    <div id="finalScore" class="text-2xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-amber-500 mb-4"></div>
+                    <div id="finalMessage" class="text-lg md:text-2xl font-semibold text-white mb-6"></div>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <button onclick="startTest()" class="bg-[var(--accent-coral)] hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full transition-all duration-300">Retake Challenge</button>
+                        <button id="certificateButton" onclick="generateCertificate()" class="bg-[var(--accent-green)] hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hidden">Download Certificate</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const { jsPDF } = window.jspdf;
+    const body = document.body;
+    const themeButton = document.getElementById('theme-toggle');
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const studentNameInput = document.getElementById('studentNameInput');
+    const startTestButton = document.getElementById('startTestButton');
+    const testElements = document.getElementById('testElements');
+    const timerDisplay = document.getElementById('timerDisplay');
+    const questionElement = document.getElementById('question');
+    const quizOptions = document.getElementById('quizOptions');
+    const feedbackElement = document.getElementById('feedback');
+    const scoreDisplay = document.getElementById('scoreDisplay');
+    const endTestElements = document.getElementById('endTestElements');
+    const finalScoreDisplay = document.getElementById('finalScore');
+    const finalMessage = document.getElementById('finalMessage');
+    const certificateButton = document.getElementById('certificateButton');
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let isTestActive = false;
+    let timerInterval;
+    const TIME_LIMIT_SECONDS = 600; // 10 min
+    const PASSING_THRESHOLD = 0.7; // 70%
+
+    const quizData = [
+        { question: "Solve this puzzle: What is '2 + 3'?", answer: "5", options: ["4","5","6"] },
+        { question: "Translate 'Apple' to Indonesian.", answer: "Apel", options:["Apel","Mangga","Jeruk"] },
+        { question: "Which day comes after 'Senin'?", answer: "Selasa", options:["Rabu","Selasa","Kamis"] },
+        { question: "Unscramble the letters: 'IYA' -> ?", answer: "AyI", options:["AyI","IaY","YAI"] },
+        { question: "What is the opposite of 'Panas'?", answer: "Dingin", options:["Dingin","Panas","Hangat"] },
+        { question: "Complete the sentence: Saya ___ makan nasi.", answer: "suka", options:["suka","tidak","harus"] },
+        { question: "Which one is a fruit?", answer: "Mangga", options:["Mangga","Mobil","Rumah"] },
+        { question: "Solve this riddle: I have keys but no locks. What am I?", answer: "Piano", options:["Piano","Door","Car"] },
+    ];
+
+    function toggleTheme() {
+        body.classList.toggle('light-theme');
+        themeButton.textContent = body.classList.contains('light-theme') ? 'Switch to Dark Theme' : 'Switch to Light Theme';
+    }
+
+    function shuffleArray(array) {
+        for (let i=array.length-1;i>0;i--){
+            const j=Math.floor(Math.random()*(i+1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function startTest() {
+        const studentName = studentNameInput.value.trim();
+        if(!studentName){
+            welcomeMessage.textContent = "Please enter your name!";
+            welcomeMessage.classList.add('text-red-400');
+            return;
+        }
+        welcomeMessage.textContent = `Good luck, ${studentName}!`;
+        welcomeMessage.classList.remove('text-red-400');
+        studentNameInput.style.display='none';
+        startTestButton.style.display='none';
+        testElements.classList.remove('hidden');
+        endTestElements.classList.add('hidden');
+        isTestActive=true;
+        currentQuestionIndex=0;
+        score=0;
+        shuffleArray(quizData);
+        startTimer();
+        loadNewQuestion();
+    }
+
+    function startTimer() {
+        let timeLeft = TIME_LIMIT_SECONDS;
+        timerDisplay.textContent = `Time: ${formatTime(timeLeft)}`;
+        timerInterval=setInterval(()=>{
+            timeLeft--;
+            timerDisplay.textContent = `Time: ${formatTime(timeLeft)}`;
+            if(timeLeft<=0){
+                clearInterval(timerInterval);
+                endTest(true);
+            }
+        },1000);
+    }
+
+    function formatTime(seconds){
+        const minutes = Math.floor(seconds/60);
+        const sec = seconds%60;
+        return `${minutes}:${sec<10?'0':''}${sec}`;
+    }
+
+    function loadNewQuestion(){
+        if(currentQuestionIndex>=quizData.length){endTest(); return;}
+        const item = quizData[currentQuestionIndex];
+        questionElement.textContent = item.question;
+        feedbackElement.textContent='';
+        quizOptions.innerHTML='';
+        const shuffledOptions=[...item.options];
+        shuffleArray(shuffledOptions);
+        shuffledOptions.forEach(opt=>{
+            const btn=document.createElement('button');
+            btn.textContent=opt;
+            btn.className="bg-[var(--primary-bg)] hover:bg-[var(--accent-coral)] text-white font-medium py-3 px-6 rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg";
+            btn.onclick=()=>checkAnswer(opt,item.answer);
+            quizOptions.appendChild(btn);
+        });
+        scoreDisplay.textContent=`Score: ${score} / ${currentQuestionIndex}`;
+        currentQuestionIndex++;
+    }
+
+    function checkAnswer(selected, correct){
+        if(!isTestActive) return;
+        if(selected===correct){
+            score++;
+            feedbackElement.textContent="Correct! 🎉";
+            feedbackElement.className="text-md md:text-lg font-bold text-green-400 mt-4";
+        } else {
+            feedbackElement.textContent=`Incorrect 😔. Correct: ${correct}`;
+            feedbackElement.className="text-md md:text-lg font-bold text-red-400 mt-4";
+        }
+        scoreDisplay.textContent=`Score: ${score} / ${currentQuestionIndex}`;
+        const buttons=quizOptions.querySelectorAll('button');
+        buttons.forEach(b=>{
+            b.disabled=true;
+            if(b.textContent===correct) b.classList.add('bg-green-600','hover:bg-green-600','ring-2','ring-green-400','ring-offset-2','ring-offset-[var(--secondary-bg)]');
+            else if(b.textContent===selected) b.classList.add('bg-red-600','hover:bg-red-600','ring-2','ring-red-400','ring-offset-2','ring-offset-[var(--secondary-bg)]');
+        });
+        setTimeout(loadNewQuestion,1500);
+    }
+
+    function endTest(timedOut=false){
+        isTestActive=false;
+        clearInterval(timerInterval);
+        testElements.classList.add('hidden');
+        endTestElements.classList.remove('hidden');
+        const total = quizData.length;
+        const percent = (score/total)*100;
+        const name = studentNameInput.value.trim();
+        finalScoreDisplay.textContent=`Final Score: ${score} / ${total} (${percent.toFixed(0)}%)`;
+        if(percent>=PASSING_THRESHOLD*100){
+            finalMessage.textContent=`Congratulations, ${name}! You passed! 🎉`;
+            certificateButton.classList.remove('hidden');
+        } else {
+            finalMessage.textContent=`Sorry, ${name}. Keep practicing and try again! 😥`;
+            certificateButton.classList.add('hidden');
+        }
+        if(timedOut) finalMessage.textContent=`${name}, time is up! ` + finalMessage.textContent;
+        studentNameInput.style.display='block';
+        startTestButton.style.display='block';
+    }
+
+    function generateCertificate(){
+        const name = studentNameInput.value.trim();
+        const scorePercent = ((score/quizData.length)*100).toFixed(0);
+        const date = new Date().toLocaleDateString();
+        const doc=new jsPDF({orientation:'landscape',unit:'pt',format:[600,400]});
+        doc.setFillColor('#f0f0f0'); doc.rect(0,0,600,400,'F');
+        doc.setDrawColor('#f97316'); doc.setLineWidth(5); doc.rect(10,10,580,380);
+        doc.setFont('times','normal'); doc.setFontSize(24); doc.setTextColor('#4b5563');
+        doc.text('CERTIFICATE OF ACHIEVEMENT',300,70,{align:'center'});
+        doc.setFontSize(14); doc.text('This certifies that',300,110,{align:'center'});
+        doc.setFontSize(36); doc.setTextColor('#f97316'); doc.text(name.toUpperCase(),300,160,{align:'center'});
+        doc.setFontSize(14); doc.setTextColor('#4b5563'); doc.text('has successfully completed the Puzzle & Quiz Challenge',300,200,{align:'center'});
+        doc.setFontSize(18); doc.setTextColor('#059669'); doc.text(`Final Score: ${scorePercent}%`,300,260,{align:'center'});
+        doc.setFontSize(12); doc.setTextColor('#1e2940'); doc.text('Issued by the Language Learning Academy',300,320,{align:'center'});
+        doc.text(`Date: ${date}`,300,340,{align:'center'});
+        doc.save(`certificate_${name.replace(/\s/g,'_')}.pdf`);
+    }
+</script>
+
+</body>
+</html>
