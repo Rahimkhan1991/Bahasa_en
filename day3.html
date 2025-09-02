@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indonesian Language Basics - Day 3</title>
-    <!-- Use the Inter font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <!-- Load Tailwind CSS for easy styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
@@ -109,36 +107,27 @@
 </head>
 <body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center justify-start p-4 md:p-8">
 
-    <!-- Main content container -->
     <div class="w-full max-w-4xl mx-auto flex flex-col items-center">
-        <!-- Header -->
         <header class="text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-bold text-teal-400">Day 3: Numbers & Shopping</h1>
             <p class="mt-2 text-lg md:text-xl text-gray-400">Click on a card to see the translation!</p>
         </header>
 
-        <!-- Control buttons -->
         <div class="flex flex-col sm:flex-row gap-4 mb-8 w-full max-w-sm">
-            <!-- Theme Toggle Button -->
             <button id="theme-toggle" onclick="toggleTheme()" class="theme-button flex-1 py-3 px-6 rounded-2xl border-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                 Switch to Light Theme
             </button>
-            <!-- Reverse Cards Button -->
             <button id="reverse-toggle" onclick="toggleReverse()" class="reverse-button flex-1 py-3 px-6 rounded-2xl border-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                 Reverse Cards
             </button>
         </div>
 
-        <!-- Main language learning section -->
         <main class="w-full grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
 
-            <!-- Category Section: Shopping Phrases -->
             <div class="col-span-full mt-8 mb-4">
                 <h2 class="text-2xl font-semibold text-gray-200">Shopping Phrases</h2>
             </div>
             
-       
-
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
                 <div class="flip-card-inner relative w-full h-full">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -165,9 +154,6 @@
                 </div>
             </div>
 
-           
-            
-            <!-- Category Section: Numbers 1-10 -->
             <div class="col-span-full mt-4 mb-4">
                 <h2 class="text-2xl font-semibold text-gray-200">Numbers 1-10</h2>
             </div>
@@ -236,9 +222,46 @@
                     </div>
                 </div>
             </div>
-            
-           
 
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">6</p>
+                        <p class="text-xl font-medium id-text hidden">enam</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">6</p>
+                        <p class="text-xl font-medium id-text">enam</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">7</p>
+                        <p class="text-xl font-medium id-text hidden">tujuh</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">7</p>
+                        <p class="text-xl font-medium id-text">tujuh</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">8</p>
+                        <p class="text-xl font-medium id-text hidden">delapan</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">8</p>
+                        <p class="text-xl font-medium id-text">delapan</p>
+                    </div>
+                </div>
+            </div>
+            
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
                 <div class="flip-card-inner relative w-full h-full">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -253,7 +276,7 @@
             </div>
 
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">10</p>
                         <p class="text-xl font-medium id-text hidden">sepuluh</p>
@@ -265,13 +288,12 @@
                 </div>
             </div>
 
-            <!-- Category Section: Numbers 11-20 -->
             <div class="col-span-full mt-4 mb-4">
                 <h2 class="text-2xl font-semibold text-gray-200">Numbers 11-20</h2>
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">11</p>
                         <p class="text-xl font-medium id-text hidden">sebelas</p>
@@ -282,11 +304,48 @@
                     </div>
                 </div>
             </div>
-
-          
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">12</p>
+                        <p class="text-xl font-medium id-text hidden">dua belas</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">12</p>
+                        <p class="text-xl font-medium id-text">dua belas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">13</p>
+                        <p class="text-xl font-medium id-text hidden">tiga belas</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">13</p>
+                        <p class="text-xl font-medium id-text">tiga belas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">14</p>
+                        <p class="text-xl font-medium id-text hidden">empat belas</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">14</p>
+                        <p class="text-xl font-medium id-text">empat belas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">15</p>
                         <p class="text-xl font-medium id-text hidden">lima belas</p>
@@ -299,7 +358,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">16</p>
                         <p class="text-xl font-medium id-text hidden">enam belas</p>
@@ -312,7 +371,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">17</p>
                         <p class="text-xl font-medium id-text hidden">tujuh belas</p>
@@ -325,7 +384,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">18</p>
                         <p class="text-xl font-medium id-text hidden">delapan belas</p>
@@ -338,7 +397,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">19</p>
                         <p class="text-xl font-medium id-text hidden">sembilan belas</p>
@@ -351,7 +410,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">20</p>
                         <p class="text-xl font-medium id-text hidden">dua puluh</p>
@@ -363,13 +422,12 @@
                 </div>
             </div>
 
-            <!-- Category Section: Tens (10-100) -->
             <div class="col-span-full mt-4 mb-4">
                 <h2 class="text-2xl font-semibold text-gray-200">Tens (10-100)</h2>
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">10</p>
                         <p class="text-xl font-medium id-text hidden">sepuluh</p>
@@ -382,7 +440,7 @@
             </div>
 
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">20</p>
                         <p class="text-xl font-medium id-text hidden">dua puluh</p>
@@ -395,7 +453,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">30</p>
                         <p class="text-xl font-medium id-text hidden">tiga puluh</p>
@@ -408,7 +466,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">40</p>
                         <p class="text-xl font-medium id-text hidden">empat puluh</p>
@@ -421,7 +479,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">50</p>
                         <p class="text-xl font-medium id-text hidden">lima puluh</p>
@@ -434,7 +492,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">60</p>
                         <p class="text-xl font-medium id-text hidden">enam puluh</p>
@@ -447,7 +505,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">70</p>
                         <p class="text-xl font-medium id-text hidden">tujuh puluh</p>
@@ -460,7 +518,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">80</p>
                         <p class="text-xl font-medium id-text hidden">delapan puluh</p>
@@ -473,7 +531,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">90</p>
                         <p class="text-xl font-medium id-text hidden">sembilan puluh</p>
@@ -484,9 +542,9 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">100</p>
                         <p class="text-xl font-medium id-text hidden">seratus</p>
@@ -498,13 +556,12 @@
                 </div>
             </div>
 
-            <!-- Category Section: Hundreds (100-1000) -->
             <div class="col-span-full mt-4 mb-4">
                 <h2 class="text-2xl font-semibold text-gray-200">Hundreds (100-1000)</h2>
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">100</p>
                         <p class="text-xl font-medium id-text hidden">seratus</p>
@@ -517,7 +574,7 @@
             </div>
 
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">200</p>
                         <p class="text-xl font-medium id-text hidden">dua ratus</p>
@@ -530,7 +587,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">300</p>
                         <p class="text-xl font-medium id-text hidden">tiga ratus</p>
@@ -543,7 +600,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">400</p>
                         <p class="text-xl font-medium id-text hidden">empat ratus</p>
@@ -556,7 +613,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">500</p>
                         <p class="text-xl font-medium id-text hidden">lima ratus</p>
@@ -569,7 +626,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">600</p>
                         <p class="text-xl font-medium id-text hidden">enam ratus</p>
@@ -582,7 +639,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">700</p>
                         <p class="text-xl font-medium id-text hidden">tujuh ratus</p>
@@ -595,7 +652,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">800</p>
                         <p class="text-xl font-medium id-text hidden">delapan ratus</p>
@@ -608,7 +665,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">900</p>
                         <p class="text-xl font-medium id-text hidden">sembilan ratus</p>
@@ -619,9 +676,9 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">1000</p>
                         <p class="text-xl font-medium id-text hidden">seribu</p>
@@ -633,13 +690,12 @@
                 </div>
             </div>
 
-            <!-- Category Section: Thousands (10,000-100,000) -->
             <div class="col-span-full mt-4 mb-4">
                 <h2 class="text-2xl font-semibold text-gray-200">Thousands (10,000-100,000)</h2>
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">10,000</p>
                         <p class="text-xl font-medium id-text hidden">sepuluh ribu</p>
@@ -652,7 +708,7 @@
             </div>
 
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">20,000</p>
                         <p class="text-xl font-medium id-text hidden">dua puluh ribu</p>
@@ -665,7 +721,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">30,000</p>
                         <p class="text-xl font-medium id-text hidden">tiga puluh ribu</p>
@@ -677,10 +733,99 @@
                 </div>
             </div>
             
-           
-
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">40,000</p>
+                        <p class="text-xl font-medium id-text hidden">empat puluh ribu</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">40,000</p>
+                        <p class="text-xl font-medium id-text">empat puluh ribu</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">50,000</p>
+                        <p class="text-xl font-medium id-text hidden">lima puluh ribu</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">50,000</p>
+                        <p class="text-xl font-medium id-text">lima puluh ribu</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">60,000</p>
+                        <p class="text-xl font-medium id-text hidden">enam puluh ribu</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">60,000</p>
+                        <p class="text-xl font-medium id-text">enam puluh ribu</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">70,000</p>
+                        <p class="text-xl font-medium id-text hidden">tujuh puluh ribu</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">70,000</p>
+                        <p class="text-xl font-medium id-text">tujuh puluh ribu</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">80,000</p>
+                        <p class="text-xl font-medium id-text hidden">delapan puluh ribu</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">80,000</p>
+                        <p class="text-xl font-medium id-text">delapan puluh ribu</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">90,000</p>
+                        <p class="text-xl font-medium id-text hidden">sembilan puluh ribu</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">90,000</p>
+                        <p class="text-xl font-medium id-text">sembilan puluh ribu</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
+                    <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
+                        <p class="text-xl font-medium en-text">100,000</p>
+                        <p class="text-xl font-medium id-text hidden">seratus ribu</p>
+                    </div>
+                    <div class="flip-card-back flex-col text-center shadow-lg">
+                        <p class="text-xl font-medium en-text hidden">100,000</p>
+                        <p class="text-xl font-medium id-text">seratus ribu</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">200,000</p>
                         <p class="text-xl font-medium id-text hidden">dua ratus ribu</p>
@@ -693,7 +838,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">300,000</p>
                         <p class="text-xl font-medium id-text hidden">tiga ratus ribu</p>
@@ -706,7 +851,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">400,000</p>
                         <p class="text-xl font-medium id-text hidden">empat ratus ribu</p>
@@ -719,7 +864,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">500,000</p>
                         <p class="text-xl font-medium id-text hidden">lima ratus ribu</p>
@@ -732,7 +877,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">600,000</p>
                         <p class="text-xl font-medium id-text hidden">enam ratus ribu</p>
@@ -745,7 +890,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">700,000</p>
                         <p class="text-xl font-medium id-text hidden">tujuh ratus ribu</p>
@@ -758,7 +903,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">800,000</p>
                         <p class="text-xl font-medium id-text hidden">delapan ratus ribu</p>
@@ -771,7 +916,7 @@
             </div>
             
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">900,000</p>
                         <p class="text-xl font-medium id-text hidden">sembilan ratus ribu</p>
@@ -782,9 +927,9 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
-                <div class="flip-card-inner relative w-full h-full">
+                <div class="flip-card-inner relative w-full h-32">
                     <div class="flip-card-front flex-col text-center shadow-lg hover:shadow-xl transition-shadow duration-300">
                         <p class="text-xl font-medium en-text">1,000,000</p>
                         <p class="text-xl font-medium id-text hidden">satu juta</p>
@@ -796,7 +941,6 @@
                 </div>
             </div>
 
-            <!-- "Go to Next Page" button -->
             <div class="col-span-full flex justify-center mt-12 mb-8">
                 <button id="next-page-button" onclick="alert('This will take you to a new page!')" class="theme-button flex-1 py-4 px-8 rounded-2xl border-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 max-w-sm">
                     Move to Next Page
@@ -805,7 +949,6 @@
         </main>
     </div>
 
-    <!-- JavaScript to handle all the functionality -->
     <script>
         // Check for browser support for the Web Speech API
         const speechSupported = 'speechSynthesis' in window;
@@ -813,24 +956,46 @@
         const themeButton = document.getElementById('theme-toggle');
         const reverseButton = document.getElementById('reverse-toggle');
 
+        // Function to set the initial theme and state from local storage
+        function setInitialState() {
+            // Check for theme preference
+            if (localStorage.getItem('theme') === 'light') {
+                body.classList.add('light-theme');
+                themeButton.textContent = 'Switch to Dark Theme';
+            } else {
+                themeButton.textContent = 'Switch to Light Theme';
+            }
+
+            // Check for reverse preference
+            if (localStorage.getItem('reverse') === 'true') {
+                body.classList.add('reversed');
+                reverseButton.textContent = 'Normal View';
+            } else {
+                reverseButton.textContent = 'Reverse Cards';
+            }
+        }
+
         // Function to toggle the light and dark themes
         function toggleTheme() {
             body.classList.toggle('light-theme');
             if (body.classList.contains('light-theme')) {
                 themeButton.textContent = 'Switch to Dark Theme';
+                localStorage.setItem('theme', 'light');
             } else {
                 themeButton.textContent = 'Switch to Light Theme';
+                localStorage.setItem('theme', 'dark');
             }
         }
 
         // Function to toggle the card direction (English -> Indonesian or vice-versa)
         function toggleReverse() {
             body.classList.toggle('reversed');
-            // Change the button text based on the current mode
             if (body.classList.contains('reversed')) {
                 reverseButton.textContent = 'Normal View';
+                localStorage.setItem('reverse', 'true');
             } else {
                 reverseButton.textContent = 'Reverse Cards';
+                localStorage.setItem('reverse', 'false');
             }
         }
 
@@ -841,18 +1006,18 @@
                 return;
             }
 
-            // Find the Indonesian text element within the card
             const idTextElement = cardElement.querySelector('.id-text');
             if (idTextElement) {
                 const phrase = idTextElement.textContent;
                 const utterance = new SpeechSynthesisUtterance(phrase);
-                // Set the language to Indonesian for better pronunciation
-                utterance.lang = 'id-ID'; 
-                // Stop any current speech before starting a new one
+                utterance.lang = 'id-ID';
                 window.speechSynthesis.cancel();
                 window.speechSynthesis.speak(utterance);
             }
         }
+        
+        // Call setInitialState on page load
+        window.onload = setInitialState;
     </script>
 </body>
 </html>
