@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 7: Practice & More</title>
+    <!-- Use the Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Dark Theme (Default) */
+        body {
+            background-color: #0d1222;
+            color: #d1d5db;
+        }
+        .theme-button, .reverse-button {
+            color: #f3f4f6;
+            background-color: #374151;
+            border-color: #4b5563;
+        }
+        .flip-card-front {
+            background-color: #1f2937;
+            color: #d1d5db;
+        }
+        .flip-card-back {
+            background-color: #047857;
+            color: #f3f4f6;
+        }
+
+        /* Light Theme */
+        body.light-theme {
+            background-color: #f8fafc;
+            color: #1f2937;
+        }
+        .light-theme .theme-button, .light-theme .reverse-button {
+            color: #f3f4f6;
+            background-color: #4b5563;
+            border-color: #6b7280;
+        }
+        .light-theme .flip-card-front {
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+        .light-theme .flip-card-back {
+            background-color: #059669;
+            color: #f3f4f6;
+        }
+
+        /* Flip Card logic */
+        .flip-card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            -webkit-backface-visibility: hidden; /* Safari */
+            backface-visibility: hidden;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 1.5rem; /* 24px */
+        }
+        .flip-card-front {
+            z-index: 2;
+        }
+        .flip-card-back {
+            transform: rotateY(180deg);
+        }
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937; /* Dark gray */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6b7280; /* Medium gray */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af; /* Lighter gray */
+        }
+
+        /* Styles for reversed mode */
+        body.reversed .flip-card-front .en-text,
+        body.reversed .flip-card-back .id-text {
+            display: none;
+        }
+        body.reversed .flip-card-front .id-text,
+        body.reversed .flip-card-back .en-text {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen flex flex-col items-center justify-start p-4 md:p-8">
+
+    <!-- Main content container -->
+    <div class="w-full max-w-4xl mx-auto flex flex-col items-center">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-teal-400">Day 7: Review & Practice</h1>
+            <p class="mt-2 text-lg md:text-xl text-gray-400">Review, practice, and test your knowledge!</p>
+        </header>
+
+        <!-- Control buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-8 w-full max-w-sm">
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" onclick="toggleTheme()" class="theme-button flex-1 py-3 px-6 rounded-2xl border-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                Switch to Light Theme
+            </button>
+            <!-- Reverse Cards Button -->
+            <button id="reverse-toggle" onclick="toggleReverse()" class="reverse-button flex-1 py-3 px-6 rounded-2xl border-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                Reverse Cards
+            </button>
+        </div>
+
+        <!-- Section 1: Interactive Conversation Builder -->
+        <div class="w-full mb-8">
+            <h2 class="text-2xl font-semibold text-gray-200 mb-4">Practice a Conversation</h2>
+            <div class="bg-gray-800 p-6 rounded-3xl shadow-lg space-y-4">
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="text" id="nameInput" placeholder="Your Name" class="flex-1 p-3 rounded-xl bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+                    <input type="text" id="countryInput" placeholder="Your Country" class="flex-1 p-3 rounded-xl bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-all">
+                </div>
+                <div class="bg-gray-700 p-4 rounded-xl text-center min-h-[4rem] flex items-center justify-center">
+                    <p id="idPhrase" class="text-xl font-medium text-teal-300">Halo, nama saya [nama Anda]. Saya dari [negara Anda]. Saya tidak bicara banyak bahasa Indonesia, tapi saya sedang belajar.</p>
+                </div>
+                <div class="flex flex-row gap-4 justify-center">
+                    <button id="speakButton" onclick="speakDynamicPhrase()" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded-xl transition-colors">
+                        <svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.899a9 9 0 010 12.728M5.818 5.818a2 2 0 012.828 0L10 8.172l.172.172a1 1 0 001.414 0L14 8.172a2 2 0 012.828 0l.172.172a1 1 0 001.414 0l.172-.172a2 2 0 012.828 0m-8.586 10.172a1 1 0 000 1.414l.172.172a2 2 0 010 2.828h-2a2 2 0 01-2.828 0l-.172-.172a1 1 0 00-1.414 0l-2.828 2.828a2 2 0 01-2.828 0h-2a2 2 0 01-2.828 0z"></path></svg>
+                        Listen
+                    </button>
+                    <button id="copyButton" onclick="copyPhrase()" class="bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-xl transition-colors">
+                        <svg class="w-6 h-6 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12a2 2 0 012 2v10a2 2 0 01-2 2H8a2 2 0 01-2-2V9a2 2 0 012-2zM5 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V5z"></path></svg>
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Shopping & Money Phrases -->
+        <main class="w-full grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="col-span-full mt-4 mb-4">
+                <h2 class="text-2xl font-semibold text-gray-200">Shopping & Money</h2>
+                <p class="text-gray-400 mt-2">Useful phrases for buying things and asking about prices.</p>
+            </div>
+            
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front en-text">How much is this?</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back id-text">Berapa harga ini?</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front id-text hidden">Berapa harga ini?</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back en-text hidden">How much is this?</p>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front en-text">I want to buy this</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back id-text">Saya mau beli ini</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front id-text hidden">Saya mau beli ini</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back en-text hidden">I want to buy this</p>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front en-text">Can you lower the price?</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back id-text">Bisa kurang sedikit?</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front id-text hidden">Bisa kurang sedikit?</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back en-text hidden">Can you lower the price?</p>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front en-text">I'm just looking</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back id-text">Saya hanya lihat-lihat</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front id-text hidden">Saya hanya lihat-lihat</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back en-text hidden">I'm just looking</p>
+                </div>
+            </div>
+
+            <div class="flip-card cursor-pointer w-full h-32 rounded-3xl" onclick="this.classList.toggle('flipped'); speakPhrase(this)">
+                <div class="flip-card-inner relative w-full h-full">
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front en-text">Thank you</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back id-text">Terima kasih</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-front id-text hidden">Terima kasih</p>
+                    <p class="text-center text-xl font-medium px-4 leading-snug flip-card-back en-text hidden">Thank you</p>
+                </div>
+            </div>
+
+            <!-- Section 3: Interactive Quiz -->
+            <div class="col-span-full mt-8 mb-4">
+                <h2 class="text-2xl font-semibold text-gray-200">Quick Quiz</h2>
+                <p class="text-gray-400 mt-2">Test your knowledge of the phrases you've learned.</p>
+            </div>
+            
+            <div class="col-span-full bg-gray-800 p-6 rounded-3xl shadow-lg space-y-4 text-center">
+                <p id="question" class="text-xl font-semibold mb-4">How do you say "Water"?</p>
+                <div id="options" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Quiz buttons will be generated here -->
+                </div>
+                <div id="feedback" class="text-lg font-medium"></div>
+                <button id="nextQuestionButton" onclick="loadNewQuestion()" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-6 rounded-xl transition-colors">
+                    Next Question
+                </button>
+            </div>
+            
+            <!-- Section 4: Other Suggestions for Learning -->
+            <div class="col-span-full mt-8 mb-4">
+                <h2 class="text-2xl font-semibold text-gray-200">More Suggestions for Learning</h2>
+            </div>
+            <div class="col-span-full space-y-4">
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-teal-400 mb-2">Watch Indonesian Content</h3>
+                    <p>Find Indonesian movies, TV shows, or YouTube creators with subtitles. This is a great way to improve listening skills and hear natural pronunciation and rhythm.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-teal-400 mb-2">Listen to Music & Podcasts</h3>
+                    <p>Search for popular Indonesian music or podcasts on your favorite streaming service. Listening passively can help your brain recognize patterns and sounds in the language.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-teal-400 mb-2">Find a Language Partner</h3>
+                    <p>Websites like HelloTalk or Tandem allow you to connect with native Indonesian speakers who are learning your language. You can help each other practice and learn in a low-pressure environment.</p>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-semibold text-teal-400 mb-2">Practice Speaking Aloud</h3>
+                    <p>Even if you're by yourself, try saying phrases out loud. Practice in the car, in the shower, or in front of a mirror. This builds muscle memory for your mouth and helps you become more comfortable with the sounds.</p>
+                </div>
+            </div>
+
+            <!-- "End of lessons" button -->
+            <div class="col-span-full flex justify-center mt-12 mb-8">
+                <button id="next-page-button" onclick="alert('Congratulations! You have completed all the lessons for now.')" class="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-4 px-8 rounded-2xl border-2 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 max-w-sm">
+                    Complete Day 7
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript to handle all the functionality -->
+    <script>
+        // Check for browser support for the Web Speech API
+        const speechSupported = 'speechSynthesis' in window;
+        const body = document.body;
+        const themeButton = document.getElementById('theme-toggle');
+        const reverseButton = document.getElementById('reverse-toggle');
+
+        // Function to toggle the light and dark themes
+        function toggleTheme() {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                themeButton.textContent = 'Switch to Dark Theme';
+            } else {
+                themeButton.textContent = 'Switch to Light Theme';
+            }
+        }
+
+        // Function to toggle the card direction (English -> Indonesian or vice-versa)
+        function toggleReverse() {
+            body.classList.toggle('reversed');
+            // Change the button text based on the current mode
+            if (body.classList.contains('reversed')) {
+                reverseButton.textContent = 'Normal View';
+            } else {
+                reverseButton.textContent = 'Reverse Cards';
+            }
+        }
+
+        // Function to speak the Indonesian phrase from a clicked card
+        function speakPhrase(cardElement) {
+            if (!speechSupported) {
+                console.warn("Web Speech API is not supported in this browser.");
+                return;
+            }
+            const idTextElement = cardElement.querySelector('.id-text');
+            if (idTextElement) {
+                const phrase = idTextElement.textContent;
+                const utterance = new SpeechSynthesisUtterance(phrase);
+                utterance.lang = 'id-ID'; 
+                window.speechSynthesis.cancel();
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // JavaScript for the Conversation Builder
+        document.addEventListener('DOMContentLoaded', () => {
+            const nameInput = document.getElementById('nameInput');
+            const countryInput = document.getElementById('countryInput');
+            const idPhraseElement = document.getElementById('idPhrase');
+            const basePhrase = "Halo, nama saya [nama Anda]. Saya dari [negara Anda]. Saya tidak bicara banyak bahasa Indonesia, tapi saya sedang belajar.";
+
+            const updatePhrase = () => {
+                const name = nameInput.value || "[nama Anda]";
+                const country = countryInput.value || "[negara Anda]";
+                idPhraseElement.textContent = basePhrase
+                    .replace("[nama Anda]", name)
+                    .replace("[negara Anda]", country);
+            };
+
+            nameInput.addEventListener('input', updatePhrase);
+            countryInput.addEventListener('input', updatePhrase);
+        });
+
+        // Function to speak the dynamic conversation phrase
+        function speakDynamicPhrase() {
+            if (!speechSupported) {
+                console.warn("Web Speech API is not supported in this browser.");
+                return;
+            }
+            const phrase = document.getElementById('idPhrase').textContent;
+            const utterance = new SpeechSynthesisUtterance(phrase);
+            utterance.lang = 'id-ID';
+            window.speechSynthesis.cancel();
+            window.speechSynthesis.speak(utterance);
+        }
+
+        // Function to copy the dynamic phrase to the clipboard
+        function copyPhrase() {
+            const phrase = document.getElementById('idPhrase').textContent;
+            const tempInput = document.createElement('textarea');
+            tempInput.value = phrase;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Phrase copied to clipboard!');
+        }
+
+        // Quiz Logic
+        const quizData = [
+            { question: "How do you say 'Water'?", answer: "Air", options: ["Air", "Minuman", "Makan"] },
+            { question: "How do you say 'Chicken'?", answer: "Ayam", options: ["Sayur", "Ikan", "Ayam"] },
+            { question: "How do you say 'Left'?", answer: "Kiri", options: ["Kiri", "Kanan", "Lurus"] },
+            { question: "How do you say 'Delicious'?", answer: "Enak", options: ["Enak", "Mahal", "Murah"] },
+            { question: "How do you say 'Cheap'?", answer: "Murah", options: ["Mahal", "Murah", "Bagus"] },
+            { question: "How do you say 'I want to buy this'?", answer: "Saya mau beli ini", options: ["Bisa kurang sedikit?", "Saya mau beli ini", "Saya hanya lihat-lihat"] }
+        ];
+
+        let currentQuestionIndex = 0;
+        const questionElement = document.getElementById('question');
+        const optionsElement = document.getElementById('options');
+        const feedbackElement = document.getElementById('feedback');
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        function loadNewQuestion() {
+            if (currentQuestionIndex >= quizData.length) {
+                feedbackElement.textContent = "Quiz complete! You can refresh the page to try again.";
+                return;
+            }
+            const currentQuizItem = quizData[currentQuestionIndex];
+            questionElement.textContent = currentQuizItem.question;
+            feedbackElement.textContent = '';
+            optionsElement.innerHTML = '';
+            shuffleArray(currentQuizItem.options);
+
+            currentQuizItem.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = "bg-gray-700 hover:bg-teal-500 text-white font-medium py-3 px-6 rounded-xl transition-colors";
+                button.onclick = () => checkAnswer(option, currentQuizItem.answer);
+                optionsElement.appendChild(button);
+            });
+            currentQuestionIndex++;
+        }
+
+        function checkAnswer(selectedOption, correctAnswer) {
+            if (selectedOption === correctAnswer) {
+                feedbackElement.textContent = "Correct! ✅";
+                feedbackElement.className = "text-lg font-medium text-green-500";
+            } else {
+                feedbackElement.textContent = `Incorrect. ❌ The correct answer is "${correctAnswer}".`;
+                feedbackElement.className = "text-lg font-medium text-red-500";
+            }
+        }
+
+        // Initialize quiz on page load
+        window.onload = function() {
+            loadNewQuestion();
+        };
+
+    </script>
+</body>
+</html>
