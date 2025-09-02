@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Test</title>
+    <!-- Use the Inter font from Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS for easy styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- jsPDF library for generating PDF certificates -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* Base styles and custom fonts */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        /* Define a custom color palette for Tailwind */
+        :root {
+            --primary-bg: #12182b; /* Dark Navy/Charcoal */
+            --secondary-bg: #1e2940; /* Slightly lighter for sections */
+            --accent-green: #059669; /* A fresh green */
+            --accent-coral: #f97316; /* A warm, vibrant coral */
+            --accent-yellow: #facc15; /* A bright, sunny yellow */
+            --text-light: #f3f4f6; /* Off-white text */
+            --text-medium: #d1d5db; /* Lighter grey text */
+        }
+        
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-medium);
+        }
+
+        .theme-button {
+            color: var(--text-light);
+            background-color: var(--secondary-bg);
+            border-color: #374151;
+            transition: all 0.3s;
+        }
+
+        /* Light Theme - Clean and bright */
+        body.light-theme {
+            background-color: #f0f4f8; /* Soft light background */
+            color: #1a202c; /* Dark text for contrast */
+        }
+
+        .light-theme .theme-button {
+            color: var(--text-light);
+            background-color: var(--accent-green);
+            border-color: #6b7280;
+        }
+
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6b7280;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+
+        /* Certificate styles (for display and PDF) */
+        .certificate {
+            font-family: 'Times New Roman', Times, serif;
+            text-align: center;
+            border: 5px solid #000;
+            padding: 2rem;
+            width: 600px;
+            height: 400px;
+            box-sizing: border-box;
+            background: #fff url('https://placehold.co/600x400/fff/000?text=Certificate+Background') no-repeat center center;
+            background-size: cover;
+            color: #000;
+        }
+        .certificate h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #4b5563; /* Gray color */
+        }
+        .certificate p {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .certificate .name {
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: underline;
+            margin: 1rem 0;
+            color: #f97316; /* Coral color */
+        }
+        .certificate .score {
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body class="bg-[var(--primary-bg)] text-[var(--text-medium)] min-h-screen flex flex-col items-center p-4 md:p-8">
+
+    <!-- Main content container -->
+    <div class="w-full max-w-5xl mx-auto flex flex-col items-center py-2 sm:py-4">
+        <!-- Header with a gradient effect -->
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-amber-500">Final Test</h1>
+            <p class="mt-2 text-lg md:text-2xl font-light text-gray-400">Time to put your Indonesian knowledge to the ultimate test!</p>
+        </header>
+
+        <!-- Controls section -->
+        <div class="flex flex-col sm:flex-row justify-center gap-4 mb-8 w-full">
+            <button onclick="window.location.href = 'index.html'" class="theme-button py-3 px-8 rounded-full border-2 font-semibold shadow-lg hover:scale-105 transition-all duration-300">
+                Back to Home
+            </button>
+            <button id="theme-toggle" onclick="toggleTheme()" class="theme-button py-3 px-8 rounded-full border-2 font-semibold shadow-lg hover:scale-105 transition-all duration-300">
+                Switch to Light Theme
+            </button>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="w-full">
+            <div id="quizSection" class="bg-[var(--secondary-bg)] p-6 sm:p-8 rounded-3xl shadow-lg space-y-6 text-center w-full">
+                <div id="quizContainer">
+                    <p id="welcomeMessage" class="text-lg md:text-2xl font-semibold mb-4 text-white">Enter your name to begin!</p>
+                    <input type="text" id="studentNameInput" placeholder="Enter your name" class="p-4 w-full max-w-lg mx-auto rounded-full bg-[var(--primary-bg)] text-[var(--text-light)] placeholder-gray-400 text-center text-lg focus:outline-none focus:ring-4 focus:ring-[var(--accent-yellow)] transition-all">
+                    
+                    <div id="options" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                        <button id="startTestButton" onclick="startTest()" class="bg-[var(--accent-coral)] hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full transition-all duration-300">Start Test</button>
+                    </div>
+
+                    <!-- Test-in-progress elements -->
+                    <div id="testElements" class="hidden">
+                        <div id="timerDisplay" class="text-md md:text-xl font-bold mt-4 text-[var(--accent-green)]">Time: 10:00</div>
+                        <p id="question" class="text-lg md:text-2xl font-semibold mt-4 mb-4 text-white"></p>
+                        <div id="quizOptions" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                        <div id="feedback" class="text-md md:text-lg font-medium mt-6"></div>
+                        <div id="scoreDisplay" class="text-md md:text-xl font-bold mt-4 text-[var(--accent-yellow)]">Score: 0 / 0</div>
+                    </div>
+
+                    <!-- End of Test elements -->
+                    <div id="endTestElements" class="hidden">
+                        <div id="finalScore" class="text-2xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-amber-500 mb-4"></div>
+                        <div id="finalMessage" class="text-lg md:text-2xl font-semibold text-white mb-6"></div>
+                        <div class="flex flex-col sm:flex-row justify-center gap-4">
+                            <button onclick="startTest()" class="bg-[var(--accent-coral)] hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full transition-all duration-300">Retake Test</button>
+                            <button id="certificateButton" onclick="generateCertificate()" class="bg-[var(--accent-green)] hover:bg-green-600 text-white font-bold py-4 px-8 rounded-full transition-all duration-300 hidden">Download Certificate</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to handle all the functionality -->
+    <script>
+        // Use the window.jsPDF to reference the library
+        const { jsPDF } = window.jspdf;
+
+        const body = document.body;
+        const themeButton = document.getElementById('theme-toggle');
+        
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        const studentNameInput = document.getElementById('studentNameInput');
+        const startTestButton = document.getElementById('startTestButton');
+        const quizContainer = document.getElementById('quizContainer');
+        
+        const testElements = document.getElementById('testElements');
+        const timerDisplay = document.getElementById('timerDisplay');
+        const questionElement = document.getElementById('question');
+        const quizOptions = document.getElementById('quizOptions');
+        const feedbackElement = document.getElementById('feedback');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        
+        const endTestElements = document.getElementById('endTestElements');
+        const finalScoreDisplay = document.getElementById('finalScore');
+        const finalMessage = document.getElementById('finalMessage');
+        const certificateButton = document.getElementById('certificateButton');
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let isTestActive = false;
+        let timerInterval;
+        const TIME_LIMIT_SECONDS = 600; // 10 minutes
+        const PASSING_THRESHOLD = 0.8; // 80%
+
+        // Quiz data from all lessons
+        const quizData = [
+            // Day 1: Greetings
+            { question: "How do you say 'Good morning'?", answer: "Selamat pagi", options: ["Selamat malam", "Selamat pagi", "Selamat jalan"] },
+            { question: "What is the correct response to 'Apa kabar?'?", answer: "Baik, terima kasih", options: ["Selamat siang", "Baik, terima kasih", "Sampai jumpa"] },
+            
+            // Day 2: Ordering Food
+            { question: "What does 'Minum' mean?", answer: "To drink", options: ["To eat", "To drink", "To pay"] },
+            { question: "How do you say 'I want to eat rice'?", answer: "Saya mau makan nasi", options: ["Saya mau minum air", "Saya mau makan nasi", "Saya suka makan nasi"] },
+            
+            // Day 3: Travel
+            { question: "Translate 'Where is the bus station?'", answer: "Di mana stasiun bus?", options: ["Saya mau ke stasiun", "Di mana stasiun bus?", "Berapa harganya?"] },
+            { question: "The word 'Jalan' means...", answer: "Street/walk", options: ["Street/walk", "Car", "Train"] },
+            
+            // Day 4: Shopping
+            { question: "What is 'Mahal'?", answer: "Expensive", options: ["Cheap", "Big", "Expensive"] },
+            { question: "How would you ask 'Can I get a discount?'?", answer: "Bisa kurang sedikit?", options: ["Berapa harga ini?", "Ini enak", "Bisa kurang sedikit?"] },
+
+            // Day 5: Adjectives
+            { question: "What does 'Panas' mean?", answer: "Hot", options: ["Hot", "Cold", "Spicy"] },
+            { question: "Translate 'The car is new'.", answer: "Mobil itu baru", options: ["Mobil itu besar", "Mobil itu baru", "Mobil itu mahal"] },
+
+            // Day 6: Verbs
+            { question: "Translate 'I am walking'.", answer: "Saya sedang berjalan", options: ["Saya sudah jalan", "Saya sedang berjalan", "Saya akan jalan"] },
+            { question: "What is the verb for 'to write'?", answer: "Menulis", options: ["Membaca", "Membeli", "Menulis"] },
+            
+            // Day 7: Family
+            { question: "How do you say 'My mother'?", answer: "Ibu saya", options: ["Bapak saya", "Ibu saya", "Saudara saya"] },
+            { question: "What is the word for 'older brother'?", answer: "Abang/Kakak", options: ["Adik", "Ayah", "Abang/Kakak"] },
+            
+            // Day 8: Quiz & Puzzles
+            { question: "Translate 'Ten' into Indonesian.", answer: "Sepuluh", options: ["Satu", "Lima", "Sepuluh"] },
+            { question: "How do you say 'Tomorrow'?", answer: "Besok", options: ["Kemarin", "Besok", "Sekarang"] },
+        ];
+
+        // Function to toggle the light and dark themes
+        function toggleTheme() {
+            body.classList.toggle('light-theme');
+            if (body.classList.contains('light-theme')) {
+                themeButton.textContent = 'Switch to Dark Theme';
+            } else {
+                themeButton.textContent = 'Switch to Light Theme';
+            }
+        }
+        
+        // --- Test Logic ---
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        function startTest() {
+            const studentName = studentNameInput.value.trim();
+            if (studentName === '') {
+                welcomeMessage.textContent = "Please enter your name to begin.";
+                welcomeMessage.classList.add('text-red-400');
+                return;
+            }
+            
+            welcomeMessage.textContent = `Good luck, ${studentName}!`;
+            welcomeMessage.classList.remove('text-red-400');
+            studentNameInput.style.display = 'none';
+            startTestButton.style.display = 'none';
+            
+            testElements.classList.remove('hidden');
+            endTestElements.classList.add('hidden');
+
+            isTestActive = true;
+            currentQuestionIndex = 0;
+            score = 0;
+            shuffleArray(quizData);
+            startTimer();
+            loadNewQuestion();
+        }
+        
+        function startTimer() {
+            let timeLeft = TIME_LIMIT_SECONDS;
+            timerDisplay.textContent = `Time: ${formatTime(timeLeft)}`;
+            
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = `Time: ${formatTime(timeLeft)}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    endTest(true); // End the test due to time out
+                }
+            }, 1000);
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        }
+
+        function loadNewQuestion() {
+            if (currentQuestionIndex >= quizData.length) {
+                endTest();
+                return;
+            }
+            const currentQuizItem = quizData[currentQuestionIndex];
+            questionElement.textContent = currentQuizItem.question;
+            feedbackElement.textContent = '';
+            quizOptions.innerHTML = '';
+            
+            const shuffledOptions = [...currentQuizItem.options];
+            shuffleArray(shuffledOptions);
+
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = "bg-[var(--primary-bg)] hover:bg-[var(--accent-coral)] text-white font-medium py-3 px-6 rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg";
+                button.onclick = () => checkAnswer(option, currentQuizItem.answer);
+                quizOptions.appendChild(button);
+            });
+
+            scoreDisplay.textContent = `Score: ${score} / ${currentQuestionIndex}`;
+            currentQuestionIndex++;
+        }
+
+        function checkAnswer(selectedOption, correctAnswer) {
+            if (!isTestActive) return;
+
+            if (selectedOption === correctAnswer) {
+                score++;
+                feedbackElement.textContent = "Correct! 🎉";
+                feedbackElement.className = "text-md md:text-lg font-bold text-green-400 mt-4";
+            } else {
+                feedbackElement.textContent = `Incorrect. 😔 The answer is "${correctAnswer}".`;
+                feedbackElement.className = "text-md md:text-lg font-bold text-red-400 mt-4";
+            }
+            scoreDisplay.textContent = `Score: ${score} / ${currentQuestionIndex}`;
+
+            const buttons = quizOptions.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.disabled = true;
+                if (button.textContent === correctAnswer) {
+                    button.classList.add('bg-green-600', 'hover:bg-green-600', 'ring-2', 'ring-green-400', 'ring-offset-2', 'ring-offset-[var(--secondary-bg)]');
+                } else if (button.textContent === selectedOption) {
+                    button.classList.add('bg-red-600', 'hover:bg-red-600', 'ring-2', 'ring-red-400', 'ring-offset-2', 'ring-offset-[var(--secondary-bg)]');
+                }
+            });
+
+            setTimeout(() => {
+                loadNewQuestion();
+            }, 1500);
+        }
+
+        function endTest(timedOut = false) {
+            isTestActive = false;
+            clearInterval(timerInterval);
+            
+            testElements.classList.add('hidden');
+            endTestElements.classList.remove('hidden');
+
+            const totalQuestions = quizData.length;
+            const percentage = (score / totalQuestions) * 100;
+            const studentName = studentNameInput.value.trim();
+
+            finalScoreDisplay.textContent = `Final Score: ${score} / ${totalQuestions} (${percentage.toFixed(0)}%)`;
+            
+            if (percentage >= PASSING_THRESHOLD * 100) {
+                finalMessage.textContent = `Congratulations, ${studentName}! You passed! 🎉`;
+                certificateButton.classList.remove('hidden');
+            } else {
+                finalMessage.textContent = `Sorry, ${studentName}, you didn't pass this time. Keep practicing and try again! 😥`;
+                certificateButton.classList.add('hidden');
+            }
+
+            if (timedOut) {
+                finalMessage.textContent = `${studentName}, time is up! ` + finalMessage.textContent;
+            }
+            
+            // Reset for next test
+            studentNameInput.style.display = 'block';
+            startTestButton.style.display = 'block';
+        }
+
+        function generateCertificate() {
+            const studentName = studentNameInput.value.trim();
+            const scorePercentage = ((score / quizData.length) * 100).toFixed(0);
+            const currentDate = new Date().toLocaleDateString();
+
+            const doc = new jsPDF({
+                orientation: 'landscape',
+                unit: 'pt',
+                format: [600, 400]
+            });
+
+            // Set up a template using shapes and text
+            doc.setFillColor('#f0f0f0'); // Light gray background
+            doc.rect(0, 0, 600, 400, 'F');
+            doc.setDrawColor('#f97316'); // Coral border
+            doc.setLineWidth(5);
+            doc.rect(10, 10, 580, 380);
+
+            doc.setFont('times', 'normal');
+            doc.setFontSize(24);
+            doc.setTextColor('#4b5563'); // Gray text
+            doc.text('CERTIFICATE OF ACHIEVEMENT', 300, 70, { align: 'center' });
+
+            doc.setFontSize(14);
+            doc.text('This certifies that', 300, 110, { align: 'center' });
+
+            doc.setFontSize(36);
+            doc.setTextColor('#f97316'); // Coral text for name
+            doc.text(studentName.toUpperCase(), 300, 160, { align: 'center' });
+
+            doc.setFontSize(14);
+            doc.setTextColor('#4b5563'); // Gray text
+            doc.text('has successfully completed the Final Test for the', 300, 200, { align: 'center' });
+            doc.text('Indonesian Language Learning Program', 300, 220, { align: 'center' });
+
+            doc.setFontSize(18);
+            doc.setTextColor('#059669'); // Green text for score
+            doc.text(`Final Score: ${scorePercentage}%`, 300, 280, { align: 'center' });
+
+            doc.setFontSize(12);
+            doc.setTextColor('#1e2940'); // Dark text for final details
+            doc.text('Issued by the Language Learning Academy', 300, 340, { align: 'center' });
+            doc.text(`Date: ${currentDate}`, 300, 360, { align: 'center' });
+
+            doc.save(`certificate_${studentName.replace(/\s/g, '_')}.pdf`);
+        }
+
+    </script>
+</body>
+</html>
